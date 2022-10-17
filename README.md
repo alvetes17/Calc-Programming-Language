@@ -1,0 +1,20 @@
+# Calc-Programming-Language
+Recursive descent parser and scanner to analyze a "Calc" Programming language.
+
+The objective of this project was to develop a translator for a calculator programming language. The translator is called "calc", which is a program that executes "calc" programs. "Calc" programs are lines of text with arithmetic expressions, input and output statements, and assignment statements. "Calc" reads the program from the standard input (stdin) and sends the output of the execution of that program to the standard output (stdout). We think of it as two programs in one since it will do the work of a programmer when writing the keywords for the "calc" program, such as "READ" or "COUT" and it will also allow the user to calculate the value of different complex expressions.
+![image](https://user-images.githubusercontent.com/92817993/196300657-29bae8d5-edfd-434d-a8a1-329424766aeb.png)
+For debugging purposes, the programmer’s input ,as well as the user's, will be taken from the keyboard. The user’s output will be prompt through the CLI (Command Line Interface). We use "Ctrl+Z" to kill the input allowance, whenever we want to display a value. The two main syntax constructors for this program are expression and statement. It is very common to have declarations as the main syntax constructor, however, we won’t be dealing with them in this program since variables will have default values of type unsigned.
+
+In case of statement:
+Statements will be followed by identifiers. For example, if we have “READ A”, A will be the identifier. The program will allow the user to assign a value to the identifier by inputting a value from stdin by using the scanf() function. If the characters in stdin don’t represent a number, the program would crash. That is a side case to deal with so it is important to make sure to allow just number entries when assigning values to identifiers unless we are using an initialized identifier on the right-hand side.
+In the case of “COUT A”, the value of the identifier will be prompt to the user from stdout by using the printf() function. In case there is no value assigned to the identifier, the default value will be zero. In the case of assignment, we will be using “=”, meaning that the expression on the right-hand side will be evaluated and assigned to the identifier on the left-hand side.
+
+In case of expression:
+Expressions will be evaluated while parsing, meaning that they will be similar to an interpretation. In the case of the expression “2*A”, it will be evaluated by returning one token at a time. We will be just dealing with positive integers, meaning that all numbers will be of type unsigned to avoid negative values. The case of division by zero is a bit tricky because it is a mathematical error and the computer interprets it as undefined. Therefore, we will check for the denominator first, and in case there is a zero, the program will exit to avoid a runtime error. Since tokens will be stored in an array of structures after parsing, holding each declared “name” along with its “number”, we will be looping through this array to find the right token and evaluate it. We call this array of structures a "symbol table". In case the identifier was never declared, an error message using stdout asking for the declaration of an identifier will be thrown. In case the identifier has been declared but not initialized, it will be initialized to zero by default.
+
+Architecture and Components
+1. The main function calls the parser. The translation is guided by the parser: it gets tokens from the scanner, parses them, and executes the statements. The principal components of the translator are: Main, Parser, and Scanner.
+2. The parser is implemented as a Recursive Descent Parser.
+3. The scanner is implemented with the function GetNextToken to convert lexemes into tokens.
+4. The types of tokens are declared as an enum, and tokens are a struct.
+5. The program containes five files: Main.c, Scaner.c, Scaner.h, Parse.c and Parse.h
